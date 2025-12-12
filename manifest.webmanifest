@@ -1,0 +1,19 @@
+{
+  "name": "CEy | Psicología",
+  "short_name": "CEy",
+  "description": "Acompañamiento psicológico con un enfoque humano, empático y profesional.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf7f0",
+  "theme_color": "#2f7d8f",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

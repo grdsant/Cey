@@ -2,6 +2,46 @@
   const qs = (s, r = document) => r.querySelector(s);
   const qsa = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  // Theme switching
+  const themeToggle = qs('[data-theme-toggle]');
+  const themeIcon = qs('.theme-toggle__icon');
+  const metaThemeColor = qs('meta[name="theme-color"]');
+  
+  const getPreferredTheme = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  
+  const setTheme = (theme) => {
+    const isDark = theme === 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeIcon) themeIcon.textContent = isDark ? '☀️' : '🌙';
+    if (metaThemeColor) metaThemeColor.content = isDark ? '#1a1a1a' : '#fbf7f0';
+    localStorage.setItem('theme', theme);
+  };
+  
+  const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+  
+  // Initialize theme
+  setTheme(getPreferredTheme());
+  
+  // Theme toggle event
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+  
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
   const CONTACT = {
     phoneLabel: '📞 Teléfono: 5512027462',
     phoneNumber: '5512027462',
